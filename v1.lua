@@ -6,7 +6,7 @@ local player = Players.LocalPlayer
 local remote = ReplicatedStorage.Modules.Net["RE/RegisterHit"]
 
 _G.AttackEnabled = false
-local MAX_DIST = 30
+local MAX_DIST = 100
 local ATTACK_SPEED = 0.1
 local lastAttack = 0
 
