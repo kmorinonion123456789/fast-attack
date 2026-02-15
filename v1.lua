@@ -6,27 +6,26 @@ local player = Players.LocalPlayer
 local remote = ReplicatedStorage.Modules.Net["RE/RegisterHit"]
 
 _G.AttackEnabled = false
-local MAX_DIST = 30 
-local ATTACK_SPEED = 0.1 -- 攻撃の間隔（秒）
+local MAX_DIST = 30
+local ATTACK_SPEED = 0.1
 local lastAttack = 0
 
--- --- UI作成 ---
 local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 screenGui.Name = "ShiunFastAttack"
 
 local button = Instance.new("TextButton", screenGui)
 button.Size = UDim2.new(0, 160, 0, 45)
-button.Position = UDim2.new(0.5, -80, 0.05, 0) 
+button.Position = UDim2.new(0.5, -80, 0.05, 0)
 button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 button.Text = "FAST ATTACK: OFF"
 button.TextColor3 = Color3.fromRGB(255, 60, 60)
 button.Font = Enum.Font.SourceSansBold
 button.TextSize = 18
-button.Draggable = true 
+button.Draggable = true
 
 local corner = Instance.new("UICorner", button)
 corner.CornerRadius = UDim.new(0, 8)
--- ON/OFF切り替え
+
 button.MouseButton1Click:Connect(function()
     _G.AttackEnabled = not _G.AttackEnabled
     if _G.AttackEnabled then
@@ -41,6 +40,7 @@ end)
 local function getClosestTarget()
     local closest = nil
     local dist = MAX_DIST
+    
     local folders = {workspace:FindFirstChild("Enemies"), workspace:FindFirstChild("Characters"), workspace}
     
     for _, folder in pairs(folders) do
@@ -70,7 +70,7 @@ RunService.RenderStepped:Connect(function()
         if now - lastAttack >= ATTACK_SPEED then
             local target = getClosestTarget()
             
-            if target the
+            if target then
                 remote:FireServer(target)
                 lastAttack = now
             end
